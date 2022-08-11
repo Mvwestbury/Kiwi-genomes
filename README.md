@@ -54,12 +54,9 @@ Note: This is not meant to be standalone commands but examples to be used for re
 -Combine single windows from all species into a single fasta file
 `while read -r line; do cat Haastii/$line Mantelli/$line Owenii/$line Rowi/$line > Combined/Combined"_"$line; done < Filenames.txt`
 
-
+- QuIBL
 
 `QuIBL.py myInputFile2.txt`
-- ASTRAL
-
-`java -jar astral.5.7.8.jar -i out1k.trs -o out1k_astral.tre`
 
 
 ## Dsuite https://github.com/millanek/Dsuite
