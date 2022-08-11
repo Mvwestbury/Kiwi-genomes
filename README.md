@@ -26,13 +26,13 @@ Note: This is not meant to be standalone commands but examples to be used for re
 
 ## Sliding window trees
 
-'awk '$2>99999 {print $1"\t1\t"$2}' Rowi.fa.fai > Genome.bed
+`awk '$2>99999 {print $1"\t1\t"$2}' Rowi.fa.fai > Genome.bed
 bedtools makewindows -b Genome.bed -w 20000 -s 1000000 > Genome_w20kb_s1Mb.bed
 bedtools getfasta -fi Rowi.fa -bed Genome_w20kb_s1Mb.bed -fo Rowi_windows.fasta
 mkdir Rowi Mantelli Owenii Haasti
 cat Rowi_windows.fasta | awk '{if (substr($0, 1, 1)==">") {filename=(substr($0,2) ".fa")} print $0 > "Rowi/"filename}'
 sed -i 's/>/>Rowi_/g' Rowi/*
-awk '$3>19999 {print $1":"$2"-"$3".fa"}' Genome_w20kb_s1Mb.bed > Filenames.txt'
+awk '$3>19999 {print $1":"$2"-"$3".fa"}' Genome_w20kb_s1Mb.bed > Filenames.txt`
 
 
 while read -r line; do cat Haastii/$line Mantelli/$line Owenii/$line Rowi/$line > Combined/Combined"_"$line; done < Filenames.txt
