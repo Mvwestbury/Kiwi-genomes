@@ -27,6 +27,7 @@ Note: This is not meant to be standalone commands but examples to be used for re
 ## Sliding window trees
 
 - Generate fasta files for IQ-tree
+
 -Create bed file with only scaffolds > 100kb
 `awk '$2>99999 {print $1"\t1\t"$2}' Rowi.fa.fai > Genome.bed`
 
