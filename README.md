@@ -92,7 +92,9 @@ Note: This is not meant to be standalone commands but examples to be used for re
 
 ## Heterozygosity and runs of homozygosity https://github.com/grenaud/ROHan
 
-`angsd -GL 1 -mininddepth 5 -minmapq 30 -minq 30 -uniqueonly 1 -only_proper_pairs 1 -docounts 1 -i bamfile -ref GCF_000442215.1_Lipotes_vexillifer_v1_genomic.fna -P 5 -out species -doSaf 1 -anc GCF_000442215.1_Lipotes_vexillifer_v1_genomic.fna -rf Lipotes_vexillifer_noXY_100kb.txt -baq 1`
+- Run ROHan changing the --size parameter to change length of ROH investigated
+
+`rohan -t 5 -o Rowi_mapMantelli_default_1Mb --size 1000000 --auto ref_100kb_autosomes.txt reference.fna Individual.bam`
 
 
 ## PSMC https://github.com/lh3/psmc
