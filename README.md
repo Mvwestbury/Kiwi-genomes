@@ -54,6 +54,8 @@ Note: This is not meant to be standalone commands but examples to be used for re
 -Combine single windows from all species into a single fasta file
 `while read -r line; do cat Haastii/$line Mantelli/$line Owenii/$line Rowi/$line > Combined/Combined"_"$line; done < Filenames.txt`
 
+-Scripts for running and filtering the phylogenies are found in the phylogenomics directory
+
 ## QuIBL https://github.com/miriammiyagi/QuIBL
 
 `QuIBL.py myInputFile2.txt`
