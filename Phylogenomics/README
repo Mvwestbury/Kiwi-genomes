@@ -1,0 +1,17 @@
+This folder contains the scripts of the phylogenetic analyses for the article "Genomic insights into the evolutionary relationships and demographic history of kiwi".
+
+All scripts rely on the raw data windows folder, and focus on the case where the Emu genome is used as reference. Usage for other similar data can be done by just changing the corresponding folder names in these scripts. The following describes each of the files included:
+
+concatenate.R - Function to concatenate a list of loci with each element in DNAbin format, after reading locus alignments into R using read.dna.
+
+pis.R - Function to calculate the percentage or absolute number of parsimony-informative sites in an alignment in DNAbin format.
+
+trimCols.R - Function to remove alignment sites with a particular proportion of missing data, taking as input an alignment in DNAbin format.
+
+collapseLowSup.R - Function to collapse into polytomies any tree branches with branch supports under a given threshold.
+
+1_runtrees.Rscript - Script to perform the first steps in phylogenomic analyses. For each locus file name, read locus into R, filter locus for missing data, length and amount of informative sites. Lastly, save locus alignment and infer gene-tree using IQ-TREE.
+
+2_runconcord.Rscript - Script to collect gene-trees and infer species-trees using ASTRAL (under the multi-species coalescent) and IQ-TREE (under gene-concatenation). Includes independent ASTRAL analyses using collapsed gene-tree branches with either supports under 50 and under 90.
+
+3_prepare.dating.Rscript - Script to collect the gene trees that are identical to either of the two  species-tree topologies with non-negligible support. After identifying concordant gene trees in each case, loci are loaded, concatenated, and saved for molecular dating analyses using MCMCtree as described in the study manuscript.
