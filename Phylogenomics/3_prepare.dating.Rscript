@@ -1,0 +1,33 @@
+library(phangorn)
+source("concatenate.R")
+
+trfiles <- grep("treefile", dir("trees_iq"), value = T)
+
+genetrs <- lapply(trfiles, function(x) read.tree(paste0("trees_iq/", x)))
+class(genetrs) <- "multiPhylo"
+
+for(i in 1:length(genetrs)) genetrs[[i]]$tip.label <- sapply(genetrs[[i]]$tip.label, function(x) strsplit(x, split = "_")[[1]][1])
+
+trs <- list(read.tree("../Emu_map/dating1/kiwi.tre"), read.tree("../Emu_map/dating2/kiwi.tre"), read.tree("../Emu_map/dating3/kiwi.tre"), read.tree(text = "((((Owenii,Haasti),Rowi),Mantelli),Emu);"))
+
+trsdists <- lapply(trs, function(x) sapply(genetrs, function(y) RF.dist(x, y)))
+
+# Only trees 2 and 4 have some loci supporting them, nearly all supporting 2.
+
+genes2 <- lapply(gsub("[.]treefile", "", trfiles[which(trsdists[[2]] == 0)]), function(x) read.dna(paste0("Combined/", x), format = "fasta"))
+genes4 <- lapply(gsub("[.]treefile", "", trfiles[which(trsdists[[4]] == 0)]), function(x) read.dna(paste0("Combined/", x), format = "fasta"))
+print("Genes have been read")
+
+for(i in 1:length(genes2)) rownames(genes2[[i]]) <- sapply(rownames(genes2[[i]]), function(x) paste0(strsplit(x, split = "_")[[1]][1], " "))
+for(i in 1:length(genes4)) rownames(genes4[[i]]) <- sapply(rownames(genes4[[i]]), function(x) paste0(strsplit(x, split = "_")[[1]][1], " "))
+
+conc2 <- concatenate(genes2)
+conc4 <- concatenate(genes4)
+print("Genes have been concatenated")
+
+conc2 <- conc2[,!apply(as.character(conc2), 2, function(x) all(x == "n"))]
+conc4 <- conc4[,!apply(as.character(conc4), 2, function(x) all(x == "n"))]
+print("Genes have been cleaned")
+
+write.dna(conc2, file = "dating2/al.phy", nbcol = -1, colsep = "")
+write.dna(conc4, file = "dating4/al.phy", nbcol = -1, colsep = "")
